@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  api:
+    image: internal-sql-api:1.0.1
+    container_name: internal-sql-api
+    env_file:
+      - .env.prod
+    environment:
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks: [ edge ]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+networks:
+  edge:
+    driver: bridge

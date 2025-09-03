@@ -38,7 +38,7 @@ await app.register(rateLimit, {
 
 // Swagger opcional
 if (String(process.env.ENABLE_SWAGGER || 'false') === 'true') {
-  app.log.warn('Swagger UI HABILITADO. No lo expongas en producción.');
+  app.log.warn('Swagger UI HABILITADO. No lo exponer en producción.');
   app.register(swaggerPlugin);
 } else {
   // aun así registramos los schemas OpenAPI base

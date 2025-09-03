@@ -2,7 +2,7 @@ import sql from 'mssql';
 
 const baseConfig = (user, password) => ({
   server: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT || '1433', 10),
+  port: parseInt(process.env.DB_PORT || '1434', 10),
   database: process.env.DB_NAME,
   user,
   password,
