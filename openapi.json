@@ -42,9 +42,13 @@
           "q": {
             "type": "string",
             "enum": [
-              "get_prefix",
-              "get_estado_responsable",
-              "update_estado"
+              "get_all_docs",
+              "get_doc_by_id",
+              "get_docs_by_tipo",
+              "get_docs_by_estado",
+              "insert_doc",
+              "update_estado",
+              "delete_doc"
             ]
           },
           "params": {
