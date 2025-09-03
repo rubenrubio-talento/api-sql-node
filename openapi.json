@@ -42,13 +42,7 @@
           "q": {
             "type": "string",
             "enum": [
-              "get_all_docs",
-              "get_doc_by_id",
-              "get_docs_by_tipo",
-              "get_docs_by_estado",
-              "insert_doc",
-              "update_estado",
-              "delete_doc"
+              "get_all_docs"
             ]
           },
           "params": {
@@ -80,6 +74,7 @@
       },
       "def-2": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
           "ok": {
             "type": "boolean"
@@ -87,14 +82,18 @@
           "data": {
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             }
           },
           "page": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1
           },
           "pageSize": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
           },
           "total": {
             "anyOf": [
@@ -113,7 +112,10 @@
         },
         "required": [
           "ok",
-          "data"
+          "data",
+          "page",
+          "pageSize",
+          "meta"
         ],
         "title": "ReadQueryResponse"
       },
@@ -144,14 +146,16 @@
       },
       "def-4": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
           "ok": {
             "type": "boolean"
           },
           "data": {
-            "oneOf": [
+            "anyOf": [
               {
-                "type": "object"
+                "type": "object",
+                "additionalProperties": true
               },
               {
                 "type": "null"
@@ -164,7 +168,8 @@
           }
         },
         "required": [
-          "ok"
+          "ok",
+          "meta"
         ],
         "title": "CmdRunResponse"
       }

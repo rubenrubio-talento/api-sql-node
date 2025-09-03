@@ -32,12 +32,6 @@ components:
           type: string
           enum:
             - get_all_docs
-            - get_doc_by_id
-            - get_docs_by_tipo
-            - get_docs_by_estado
-            - insert_doc
-            - update_estado
-            - delete_doc
         params:
           type: object
           additionalProperties: true
@@ -60,6 +54,7 @@ components:
       title: ReadQueryBody
     def-2:
       type: object
+      additionalProperties: false
       properties:
         ok:
           type: boolean
@@ -67,10 +62,14 @@ components:
           type: array
           items:
             type: object
+            additionalProperties: true
         page:
           type: integer
+          minimum: 1
         pageSize:
           type: integer
+          minimum: 1
+          maximum: 1000
         total:
           anyOf:
             - type: integer
@@ -81,6 +80,9 @@ components:
       required:
         - ok
         - data
+        - page
+        - pageSize
+        - meta
       title: ReadQueryResponse
     def-3:
       type: object
@@ -102,18 +104,21 @@ components:
       title: CmdRunBody
     def-4:
       type: object
+      additionalProperties: false
       properties:
         ok:
           type: boolean
         data:
-          oneOf:
+          anyOf:
             - type: object
+              additionalProperties: true
             - type: "null"
         meta:
           type: object
           additionalProperties: true
       required:
         - ok
+        - meta
       title: CmdRunResponse
 paths:
   /auth/token:

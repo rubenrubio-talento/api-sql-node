@@ -29,19 +29,28 @@ export default fp(async function swaggerPlugin(app, opts) {
     },
     required: ['q']
   });
-  app.addSchema({
-    $id: 'ReadQueryResponse',
-    type: 'object',
-    properties: {
-      ok:       { type: 'boolean' },
-      data:     { type: 'array', items: { type: 'object' } },
-      page:     { type: 'integer' },
-      pageSize: { type: 'integer' },
-      total:    { anyOf: [{ type: 'integer' }, { type: 'null' }] },
-      meta:     { type: 'object', additionalProperties: true }
+
+app.addSchema({
+  $id: 'ReadQueryResponse',
+  type: 'object',
+  additionalProperties: false,
+  properties: {
+    ok: { type: 'boolean' },
+    data: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: true
+      }
     },
-    required: ['ok', 'data']
-  });
+    page: { type: 'integer', minimum: 1 },
+    pageSize: { type: 'integer', minimum: 1, maximum: 1000 },
+    total: { anyOf: [{ type: 'integer' }, { type: 'null' }] },
+    meta: { type: 'object', additionalProperties: true }
+  },
+  required: ['ok', 'data', 'page', 'pageSize', 'meta']
+});
+
   app.addSchema({
     $id: 'CmdRunBody',
     type: 'object',
@@ -52,16 +61,24 @@ export default fp(async function swaggerPlugin(app, opts) {
     },
     required: ['op']
   });
-  app.addSchema({
-    $id: 'CmdRunResponse',
-    type: 'object',
-    properties: {
-      ok:   { type: 'boolean' },
-      data: { oneOf: [{ type: 'object' }, { type: 'null' }] },
-      meta: { type: 'object', additionalProperties: true }
+
+app.addSchema({
+  $id: 'CmdRunResponse',
+  type: 'object',
+  additionalProperties: false,
+  properties: {
+    ok: { type: 'boolean' },
+    data: {
+      anyOf: [
+        { type: 'object', additionalProperties: true },
+        { type: 'null' }
+      ]
     },
-    required: ['ok']
-  });
+    meta: { type: 'object', additionalProperties: true }
+  },
+  required: ['ok', 'meta']
+});
+
 
   await app.register(swagger, {
     openapi: {
