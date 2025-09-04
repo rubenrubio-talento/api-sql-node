@@ -32,6 +32,12 @@ components:
           type: string
           enum:
             - get_all_docs
+            - get_doc_by_id
+            - get_docs_by_tipo
+            - get_docs_by_estado
+            - update_estado_usuario
+            - insert_doc
+            - delete_doc
         params:
           type: object
           additionalProperties: true

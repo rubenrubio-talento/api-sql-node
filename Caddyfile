@@ -1,0 +1,10 @@
+api.empresa.local {
+  encode gzip
+  reverse_proxy internal-sql-api:8080
+
+  # Opcional: proteger Swagger si se habilita en prod
+  @docs path /docs* /openapi.json /openapi.yaml /talento/procesos/docs*
+  # basicauth @docs {
+  #   admin JDJhJDEwJG5mU2o5c0lqS3ZkS3p3ZzZURlZsdG5uV0RkZ2d4WjlpZkoybGZlY2M4QmVhM1FvTUFt
+  # }
+}
